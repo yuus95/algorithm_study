@@ -1,4 +1,4 @@
-str = ["aabbaccc","ababcdcdababcdcd","abcabcdede","abcabcabcabcdededededede","xababcdcdababcdcd"]
+sss = ["aabbaccc","ababcdcdababcdcd","abcabcdede","abcabcabcabcdededededede","xababcdcdababcdcd"]
 
 
 
@@ -14,32 +14,35 @@ str = ["aabbaccc","ababcdcdababcdcd","abcabcdede","abcabcabcabcdededededede","xa
 
 
 def solution(s):
-    answer = 0
+    answer = []
+    ans_str =""
     n = len(s)
-
-    print(s[0:2])
-
     # 문자열 길이
     for i in range(1,(n//2)+1):
         #문자열 찾기
         # 문자마다 문자길이만큼 증가시킨 str생성
-        for j in range(n):
-            if j + i >= n :
-                continue
-            str = s[j:j+i]
-            print(str,end=' ')
+        str_s=s[:i]
+        count=1
+        for j in range(i,n,i):
+            if str_s == s[j:j+i]:
+                count+=1
+            else:
+                if count == 1 :
+                    count =""
+                ans_str+= str(count) + str_s
+                count=1
+                str_s = s[j:j+i]
+        if count ==1:
+            count=""
+        ans_str += str(count) + str_s
+        answer.append(len(ans_str))
+        ans_str=""
+    return min(answer)
 
 
 
 
 
-
-    return answer
-
-
-
-
-
-for s in str:
+for s in sss:
     print(solution(s))
 
