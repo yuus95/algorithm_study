@@ -1,14 +1,13 @@
 def solution(N, stages):
     answer = []
     people=len(stages)
-    print(people)
     result = []
     for i in range(1, N+1):
-        count = 0        
-        for j in range(len(stages)):
-            if i == stages[j]:
-                count += 1
-                
+        #count = 0
+        count = stages.count(i)
+#         for j in range(len(stages)):
+#             if i == stages[j]:
+#                 count += 1
         if people == 0:
             result.append([i, 0])
             continue
