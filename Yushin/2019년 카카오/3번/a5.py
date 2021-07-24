@@ -16,7 +16,9 @@ def solution(relation):
     n_tuple = len(relation[0])
     tuple_box =[False] * n_tuple
     temp=[]
-
+    
+    
+    #유일성 찾기
     for x in range(n_tuple):
         ok = False
         for i in range(n-1):
@@ -31,16 +33,36 @@ def solution(relation):
 
     temp_len = len(temp)
 
-    for x in range(2,(temp_len+1)):
-        text = list(combinations(temp,x))
-        for x1 in text:
-                text_box = []
-                res_1 = ""
-                for y1 in range(n):
-                    for i in x1:
-                        res_1+=relation[y1][i]
 
-                    text_box.append(res_1)
+    if temp_len < 2:
+        return answer
+
+
+    else:
+        for x in range(2,temp_len+1):
+
+            # 유일성만족하지 못하는 데이터들중 2개부터 조합 시작해보기
+            test_arr=[]
+            ok = False
+            combi_num = list(combinations(temp,x))
+            for combi in combi_num  :
+                text_box= []
+                for y in range(n):
+                    text=""
+                    for k in combi:
+                        text+=relation[y][k]
+                    text_box.append(text)
+                counter = Counter(text_box)
+                if max(counter.values()) == 1:
+                    answer+=1
+                    for kk in combi:
+                        temp.remove(k)
+                    if len(temp) < 2 :
+                        break
+
+
+
+
 
 
 
