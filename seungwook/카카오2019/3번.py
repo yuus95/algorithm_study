@@ -31,8 +31,11 @@ def solution(relation):
         answer += 1
         new = deque()
         for key in keys:
-            print(key)
-            if len(set(key) - set(temp)) != len(key) - len(temp): # set 차집합 연산을 이용해 값은게 있을경우에는 길이 빼주는 값과 동일하게 나온다.
+            
+            # temp = (0), key = (0,1) 일 경우 겹치는 값이 있기 때문에 len(set(key) - set(temp)) = 1 이고
+            # len(key) - len(temp)도 1이기 때문에 if문 안으로 안들어간다. => 겹치는 값이 있으면 비교하는 두 길이가 같다.
+
+            if len(set(key) - set(temp)) != len(key) - len(temp): # set 차집합 연산을 이용해 같은게 있을경우에는 길이 빼주는 값과 동일하게 나온다.
                 # 두 길이가 다르다는 것은 공통된 부분이 없다는 뜻이다.
                 new.append(key) # new에는 최소성을 만족하는 키를 넣어준다.
         keys = new # 최소성을 다시한번 검증하기 위해 keys에 넣어주고 while문을 돈다.
