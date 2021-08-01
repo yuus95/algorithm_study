@@ -24,7 +24,7 @@ def solution(key, lock):
         for y in range(lock_long):
             if lock[x][y] == 0:
                 lock_result.append((x,y))
-                
+
     for t in range(4): # 90 ~ 360 회전
         key = rotate(key)
         for a in range(1, key_long):
