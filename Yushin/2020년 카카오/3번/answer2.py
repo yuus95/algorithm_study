@@ -27,10 +27,13 @@ def test(key,lock,i,j,m,n):
     return True
 
 
+# m = 3 ,n = 3
 
 def solution(key,lock):
     m,n = len(key),len(lock)
     for _ in range(4):
+        # key[2][2]로 lock[0][0]도 검색할 수 있어야함
+
         for i in range(-m+1,n):
             for j in range(-m+1,n):
                 if test(key,lock,i,j,m,n):
