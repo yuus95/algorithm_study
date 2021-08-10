@@ -40,3 +40,6 @@ def solution(key,lock):
                     return True
         key = rotate(key,m)
     return False
+key =[[0, 0, 0], [1, 0, 0], [0, 1, 1]]
+lock =[[1, 1, 1], [1, 1, 0], [1, 0, 1]]
+print(solution(key,lock))
