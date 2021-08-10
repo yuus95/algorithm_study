@@ -7,7 +7,6 @@ def rotation(key):
         
     
 def check(arr, key, lock):
-    count = 0
     for i in range(len(key)-1, len(key) + len(lock)-1):
         for j in range(len(key)-1, len(key) + len(lock)-1):
             if arr[i][j] != 1:
@@ -25,10 +24,8 @@ def reset(key, lock):
     return arr
 
 def solution(key, lock):
-    answer = True
     key_len = len(key)
     lock_len = len(lock)
-    
     
     for i in range(key_len + lock_len -1):
         for j in range(key_len + lock_len -1):
