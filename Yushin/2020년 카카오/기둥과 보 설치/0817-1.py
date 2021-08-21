@@ -21,7 +21,7 @@ def solution(n, build_frame):
                     d_pillar[x][y] = 2
                 elif x-1 >= 0 and (d_pillar[x-1][y] == 1 ):
                     d_pillar[x-1][y] = 2
-                    d_pillar[x][y] =
+                    d_pillar[x][y] = 2 
 
 
             elif a == 1 :
