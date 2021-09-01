@@ -27,6 +27,7 @@ def solution(play_time,adv_time,logs):
 
     for i in range(adv_time-1,play_time):
         if i > adv_time:
+
             if most_view < all_time[i] - all_time[i-adv_time]:
                 most_view = all_time[i] - all_time[i-adv_time]
                 max_time = i - adv_time+1 
@@ -62,3 +63,8 @@ logs=[["01:20:15-01:45:14", "00:40:31-01:00:00", "00:25:50-00:48:29", "01:30:59-
 
 for i in range(len(play_time)):
     print(solution(play_time[i],adv_time[i],logs[i]))
+
+
+# 3 2 2 2
+# 3 5 7 9
+# 6 4 2

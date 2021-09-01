@@ -25,6 +25,8 @@ def solution(play_time, adv_time, logs):
     play_time = str_to_int(play_time)
     adv_time = str_to_int(adv_time)
     d = [0] *(play_time+1)
+
+    # 시작점과 끝점 +1 , -1 삽입
     for i in range(len(logs)):
         x = logs[i].split("-")
         start = str_to_int(x[0])
@@ -32,6 +34,7 @@ def solution(play_time, adv_time, logs):
         d[start] += 1
         d[end] -= 1
 
+    # 구간구하기
     for i in range(1,len(logs)):
         d[i]+= d[i-1]
 
@@ -44,7 +47,8 @@ def solution(play_time, adv_time, logs):
         if currSum > maxSum :
             maxSum = currSum
             maxIdx = i-adv_time+1
-
+            # 여기서 1초를 더해준 이유는 timeline[end] - timeline[start]가
+            # start+1초 부터 end초사이의 누적 시간이기 때문에
 
     answer = '%02d:%02d:%02d' %(maxIdx/3600,maxIdx/60%60,maxIdx%60)
 
