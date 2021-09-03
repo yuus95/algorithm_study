@@ -4,34 +4,36 @@
 # 직원들의 하루평균 매출액 값을 담은 배열 sale
 # 소 한 명 이상 워크숍에 참석하면서, 참석하는 직원들의 하루평균 매출액의 합을 최소로 하려고 합니다.
 
+
+# 트리디피
 answer = 0
 
 def dfs(idx,num,d,team,check,money):
     global  answer
-    # print("team",team)
-    # print(check)
-    # print(num)
-    if idx == len(d):
+    if idx >= len(d):
         if answer > num :
             answer = num
         return
 
+    check_1 = set(check)
+    check_2 = set(team[d[idx]])
+    print(check_1)
+    if num > answer:
+        return
+
 
     # 백트래킹처리를 어떻게하지?
-    for x in check:
-        if x in team[d[idx]] :
-            dfs(idx+1,num,d,team,check,money)
+    if check_1.intersection(check_2):
+        dfs(idx+1,num,d,team,check,money)
 
 
     for i in range(len(team[d[idx]])):
-
         dfs(idx+1,num+money[team[d[idx]][i]],d,team,check+[team[d[idx]][i]],money)
 
 
 
 def solution(sales, links):
     global answer
-    global sum_m
     answer=214700000
 
     money = [0] * (len(sales)+1)
@@ -40,7 +42,6 @@ def solution(sales, links):
     for i in range(len(sales)):
         money[i+1] = sales[i]
 
-    sum_m = sum(money)
     # x:팀장
     # y:팀원
     for x,y in links:
@@ -51,6 +52,10 @@ def solution(sales, links):
 
     # 키번호
     d = list(team.keys())
+
+    if len(d) == 1:
+        return min(team[d[0]])
+
 
     # 팀장 번호, num
     dfs(0,0,d,team,[],money)
