@@ -1,55 +1,45 @@
-import collections
-from itertools import permutations
+# 안됨 다시풀어보기
 import sys
-def solution(board, r, c):
-    answer = 0
-    queue = collections.deque()
-    
-    dx, dy = [-1, 1, 0, 0], [0, 0, -1, 1]
-    
+
+def solution(play_time, adv_time, logs):
+    answer = ''
     result = []
-    for x in range(4):
-        for y in range(4):
-            if board[x][y] >= 1:
-                result.append((x,y))
+    demo = []
     
-    def bfs(a,b):
-        queue.append((a,b))
-        while queue:
-            x,y = queue.popleft()
-            visited[x][y] = True
-            for i in range(4):
-                nx = x + dx[i]
-                ny = y + dy[i]
-                if 0<= nx < 4 and 0 <= ny < 4:
-                    if visited[nx][ny] == False:
-                        visited[nx][ny] = True
-                        distance[nx][ny] = distance[x][y] + 1
-                        queue.append((nx,ny))
-    
-    per = list(permutations(result, len(result)))
-    for i in per:
-        total = 0
-        answer = sys.maxsize
-        temp_r, temp_c = r, c
-        for x,y in i:
-            visited = [[False]*4 for _ in range(4)]
-            distance = [[0]*4 for _ in range(4)]
-            bfs(temp_r,temp_c)
-            
-            if distance[x][y] > 1:
-                if x == temp_r or y == temp_c:
-                    total += 3 # ctrl, enter, 이동한번
-                elif distance[x][y] == 2:
-                    total += 3 # 이동, 이동, enter
-                else:
-                    total += 4 # 이동, ctrl, 이동, enter
-            elif distance[x][y] == 1:
-                total += 2 # 이동, enter
-            else:
-                total += 1 # enter
-            temp_r, temp_c =  x, y
-        answer = min(answer, total)
+    for i in logs:
+        i = i.split('-')
+        for j in i:
+            j = j.split(':')
+            result.append(j)
         
+    for i in result:
+        answer = 0
+        answer += int(i[0]) * 60 * 60
+        answer += int(i[1]) * 60
+        answer += int(i[2])
+        demo.append(answer)
+    #print(demo)
+    adv = adv_time.split(':')
+    target = int(adv[0]) * 60 * 60 + int(adv[1]) * 60 + int(adv[2])
+    #print(target)
+    final = []
+    for i in range(0, len(demo)-1, 2):
+        count = 0
+        point = demo[i] + target
+        for j in range(0, len(demo)-1, 2):
+            if demo[j] <= point <= demo[j+1]:
+                count += 1
+        final.append(count)
+    #print(final)
+    minn = sys.maxsize
+    idx = final.index(max(final))
+    cnt = final.count(max(final))
+    if max(final) == 0:
+        return "00:00:00"
+    for id, i in enumerate(final):
+        if i == max(final):
+            minn = min(minn, demo[id*2])
     
-    return answer
+    idx = demo.index(minn) // 2
+    #print(idx)    
+    return logs[idx].split("-")[0]
