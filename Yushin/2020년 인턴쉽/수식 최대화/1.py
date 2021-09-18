@@ -54,6 +54,7 @@ def solution(expression):
                 for i in range(0,len(copy_temp),+2):
                     num +=copy_temp[i]
                 if answer < abs(num):
+                    print(num)
                     answer = abs(num)
 
     return answer
