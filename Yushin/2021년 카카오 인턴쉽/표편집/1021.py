@@ -12,7 +12,7 @@ import copy
 
 class linked:
 
-    def __init__(self,num):
+    def __init__(self, num):
         self.num = num
         self.left = None
         self.right = None
@@ -22,87 +22,73 @@ def solution(n, k, cmd):
     ans = linked(0)
     temp = linked(0)
     stack = []
-    stackTest= []
-    result = "O"*n
-    for i in range(1,n):
+    result = "O" * n
+    for i in range(1, n):
         t = linked(i)
         t.left = temp
         temp.right = t
         temp = t
         if i == 1:
-            ans.right=temp
-
+            ans.right = temp
 
     test = copy.deepcopy(ans)
     for i in range(k):
         test_reset = test.right
         test = test_reset
-    # print(test.num)
-    for c in cmd :
-        # print("현재위치", test.num)
-
+    for c in cmd:
         if len(c) >= 2:
             # x 명령어  y:숫자
-            x,y = c.split()
+            x, y = c.split()
             y = int(y)
-            # print(x,y)
             if x == "D":
                 for _ in range(y):
-                    if test.right != None:
-                        test_reset = test.right
-                        test = test_reset
-                # print("다운",test.num)
+                    if test.right == None:
+                        break
+                    test_reset = test.right
+                    test = test_reset
 
-            else :
+            else:
                 for _ in range(y):
-                    if test.left != None:
-                        test_reset = test.left
-                        test = test_reset
-                        print(test.num)
-                print("업",test.num)
+                    if test.left == None:
+                        break
+                    test_reset = test.left
+                    test = test_reset
 
         # C
         elif c == "C":
-
-            stackTest.append(test.num)
-            # print("스택테스트",test.num)
             deleteIdx = test
-            if test.right != None:
-                deletexx = test.left
+            if test.right == None:
+                test = test.left
+                test.right = None
+            elif test.left == None:
                 test = test.right
-                test.left = deletexx
-            else :
-                deletexx = test.right
-                test= test.left
-                test.right = deletexx
+                test.left = None
+            else:
+                test.left.right = test.right
+                test.right.left = test.left
+                test = test.right
             stack.append(deleteIdx)
-            # print("삭제",deleteIdx.num)
 
-        else : # Z
-
-            # print("복구테스트",stackTest)
+        else:  # Z
             value = stack.pop()
-            # print("복구테스트1",value.num)
             if value.left != None:
-                leftIdx = value.left
-                leftIdx.right = value
+                value.left.right = value
+
             if value.right != None:
-                rightIdx = value.right
-                rightIdx.left = value
+                value.right.left = value
     result = list(result)
     for x in stack:
         result[x.num] = 'X'
     result = "".join(result)
 
-    print(result)
-
 
     return result
 
 
-n = [8,8]
-k = [2,2]
-cmd = [["D 2","C","U 3","C","D 4","C","U 2","Z","Z"],["D 2","C","U 3","C","D 4","C","U 2","Z","Z","U 1","C"]]
+n = [8, 8]
+k = [2, 2]
+cmd = [["D 2", "C", "U 3", "C", "D 4", "C", "U 2", "Z", "Z"],
+       ["D 2", "C", "U 3", "C", "D 4", "C", "U 2", "Z", "Z", "U 1", "C"]]
 
 for i in range(2):
-    print(solution(n[i],k[i],cmd[i]))
+    print(solution(n[i], k[i], cmd[i]))
