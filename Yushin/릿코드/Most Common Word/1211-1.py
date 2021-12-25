@@ -22,7 +22,7 @@ class Solution:
         maxNum = 0
         answer = ""
         for i in temp_dict.keys():
-           if maxNum < temp_dict[i]:
+           if maxNum < tempㅈ_dict[i]:
                maxNum = temp_dict[i]
                answer = i
         return answer
@@ -30,4 +30,3 @@ class Solution:
 a = Solution()
 paragraph = "a, a, a, a, b,b,b,c, c"
 banned = ["hit"]
-print(a.mostCommonWord(paragraph,banned))
