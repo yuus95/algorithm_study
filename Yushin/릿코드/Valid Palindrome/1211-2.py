@@ -6,12 +6,13 @@ class Solution:
             if (x.isalpha() or x.isnumeric()):
                 temp +=x
         if (temp[::-1] == temp):
+            print(temp)
             return True
 
         return False
 
 a = Solution()
-s = "A man, a plan, a canal: Panama"
+s = "0P"
 print(a.isPalindrome(s))
 
 # print(s.lower())
